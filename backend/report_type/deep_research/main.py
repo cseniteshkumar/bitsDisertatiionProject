@@ -1,6 +1,9 @@
+from dotenv import load_dotenv
 from gpt_researcher import GPTResearcher
 from backend.utils import write_md_to_pdf
 import asyncio
+
+load_dotenv()
 
 
 async def main(task: str):
@@ -29,5 +32,6 @@ async def main(task: str):
     print(f"\nFinal Report: {report}")
 
 if __name__ == "__main__":
-    query = "What are the most effective ways for beginners to start investing?"
+    # query = "What are the most effective ways for beginners to start investing?"
+    query = "Suggest a comprehensive research plan for exploring the impact of AI on healthcare, including potential benefits, risks, and ethical considerations."
     asyncio.run(main(query))
