@@ -3,7 +3,7 @@ import time
 from fastapi import WebSocket
 from typing import Any
 
-from gpt_researcher import GPTResearcher
+from backend import GPTResearcher
 
 
 class BasicReport:

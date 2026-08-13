@@ -14,7 +14,7 @@ import importlib
 ROOT = Path(__file__).resolve().parents[1]
 EXCLUDE_DIRS = {".venv", "venv", "__pycache__", "node_modules", "benchmark_results"}
 
-# Ensure repo root is on sys.path so imports like `import gpt_researcher` work
+# Ensure repo root is on sys.path so imports like `import backend` work
 sys.path.insert(0, str(ROOT))
 
 
@@ -66,7 +66,7 @@ def main():
         "gpt_researcher",
         "backend.server.app",
         "backend.run_server",
-        "multi_agents.main",
+        # archived: "multi_agents.main",
         "cli",
         "main",
     ]

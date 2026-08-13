@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from gpt_researcher import GPTResearcher
+from backend import GPTResearcher
 from backend.utils import write_md_to_pdf
 import asyncio
 

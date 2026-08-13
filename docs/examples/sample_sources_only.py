@@ -1,4 +1,4 @@
-from gpt_researcher import GPTResearcher
+from backend import GPTResearcher
 import asyncio
 
 

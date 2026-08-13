@@ -31,7 +31,7 @@ from server.agent_discovery import build_agent_discovery_document
 
 from server.websocket_manager import run_agent
 from utils import write_md_to_word, write_md_to_pdf
-from gpt_researcher.utils.enum import Tone
+from backend.utils.enum import Tone
 from chat.chat import ChatAgentWithMemory
 
 from server.report_store import ReportStore

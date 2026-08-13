@@ -2,15 +2,15 @@ from typing import List, Dict, Any, Optional, Set
 from fastapi import WebSocket
 import asyncio
 import logging
-from gpt_researcher import GPTResearcher
-from gpt_researcher.llm_provider.generic.base import ReasoningEfforts
-from gpt_researcher.skills.deep_research import (
+from backend import GPTResearcher
+from backend.llm_provider.generic.base import ReasoningEfforts
+from backend.skills.deep_research import (
     parse_follow_up_questions_response,
     parse_research_results_response,
     parse_search_queries_response,
 )
-from gpt_researcher.utils.llm import create_chat_completion
-from gpt_researcher.utils.enum import ReportType, ReportSource, Tone
+from backend.utils.llm import create_chat_completion
+from backend.utils.enum import ReportType, ReportSource, Tone
 
 logger = logging.getLogger(__name__)
 

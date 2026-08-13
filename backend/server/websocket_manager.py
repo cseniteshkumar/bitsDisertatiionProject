@@ -11,8 +11,8 @@ from fastapi import WebSocket
 
 from backend.report_type import BasicReport, DetailedReport
 
-from gpt_researcher.utils.enum import ReportType, Tone
-from gpt_researcher.actions import stream_output  # Import stream_output
+from backend.utils.enum import ReportType, Tone
+from backend.actions import stream_output  # Import stream_output
 from .multi_agent_runner import run_multi_agent_task
 from .server_utils import CustomLogsHandler
 

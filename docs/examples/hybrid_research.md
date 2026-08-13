@@ -60,7 +60,7 @@ Set the environment variable REPORT_SOURCE to an empty string "" in default.py
 Here's a basic script to run hybrid research:
 
 ```python
-from gpt_researcher import GPTResearcher
+from backend import GPTResearcher
 import asyncio
 
 async def get_research_report(query: str, report_type: str, report_source: str) -> str:
@@ -82,7 +82,7 @@ if __name__ == "__main__":
 Here's a basic script to run hybrid research:
 
 ```python
-from gpt_researcher import GPTResearcher
+from backend import GPTResearcher
 import asyncio
 
 async def get_research_report(query: str, report_type: str, report_source: str) -> str:

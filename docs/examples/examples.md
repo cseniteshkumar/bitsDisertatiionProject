@@ -2,7 +2,7 @@
 
 ### Run PIP Package
 ```python
-from gpt_researcher import GPTResearcher
+from backend import GPTResearcher
 import asyncio
 
 ### Using Quick Run
@@ -33,7 +33,7 @@ if __name__ == "__main__":
 
 ### Using Custom Prompts
 ```python
-from gpt_researcher import GPTResearcher
+from backend import GPTResearcher
 import asyncio
 
 

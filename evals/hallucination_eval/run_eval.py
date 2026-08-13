@@ -11,9 +11,9 @@ from pathlib import Path
 from typing import Dict, List, Optional
 from dotenv import load_dotenv
 
-from gpt_researcher.agent import GPTResearcher
-from gpt_researcher.utils.enum import ReportType, ReportSource, Tone
-from gpt_researcher.utils.logging_config import get_json_handler
+from backend.agent import GPTResearcher
+from backend.utils.enum import ReportType, ReportSource, Tone
+from backend.utils.logging_config import get_json_handler
 
 from .evaluate import HallucinationEvaluator
 
