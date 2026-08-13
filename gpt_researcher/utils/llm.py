@@ -28,7 +28,7 @@ def get_llm(llm_provider: str, **kwargs):
     """Get an LLM provider instance.
 
     Args:
-        llm_provider: The name of the LLM provider (e.g., 'openai', 'anthropic').
+        llm_provider: The name of the LLM provider (for this project, use 'ollama').
         **kwargs: Additional keyword arguments passed to the provider.
 
     Returns:
@@ -67,6 +67,8 @@ async def create_chat_completion(
     Returns:
         str: The response from the chat completion.
     """
+    llm_provider = llm_provider or "ollama"
+
     # validate input
     if model is None:
         raise ValueError("Model cannot be None")
@@ -98,11 +100,6 @@ async def create_chat_completion(
         # covers reasoning tokens too, so budgets need extra headroom.
         provider_kwargs['temperature'] = None
     provider_kwargs['max_tokens'] = max_tokens
-
-    if llm_provider == "openai":
-        base_url = os.environ.get("OPENAI_BASE_URL", None)
-        if base_url:
-            provider_kwargs['openai_api_base'] = base_url
 
     provider = get_llm(llm_provider, **provider_kwargs)
     response = ""

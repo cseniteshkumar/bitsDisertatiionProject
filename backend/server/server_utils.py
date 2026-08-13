@@ -15,6 +15,7 @@ from datetime import datetime
 from fastapi import HTTPException
 import logging
 import hashlib
+from starlette.websockets import WebSocketDisconnect
 
 from .multi_agent_runner import run_multi_agent_task
 
@@ -57,7 +58,15 @@ class CustomLogsHandler:
         """Store log data and send to websocket"""
         # Send to websocket for real-time display
         if self.websocket:
-            await self.websocket.send_json(data)
+            try:
+                await self.websocket.send_json(data)
+            except WebSocketDisconnect:
+                logger.info("WebSocket disconnected while sending logs")
+                # Drop the websocket reference to avoid future send attempts
+                self.websocket = None
+            except Exception as e:
+                logger.error(f"Failed to send websocket data: {e}")
+                self.websocket = None
             
         # Read current log file
         with open(self.log_file, 'r') as f:
@@ -265,14 +274,13 @@ async def send_file_paths(websocket, file_paths: Dict[str, str]):
 
 
 def get_config_dict(
-    langchain_api_key: str, openai_api_key: str, tavily_api_key: str,
-    google_api_key: str, google_cx_key: str, bing_api_key: str,
-    searchapi_api_key: str, serpapi_api_key: str, serper_api_key: str, searx_url: str,
+    langchain_api_key: str, openai_api_key: str | None = None, tavily_api_key: str = "",
+    google_api_key: str = "", google_cx_key: str = "", bing_api_key: str = "",
+    searchapi_api_key: str = "", serpapi_api_key: str = "", serper_api_key: str = "", searx_url: str = "",
     ollama_base_url: str = ""
 ) -> Dict[str, str]:
     return {
         "LANGCHAIN_API_KEY": langchain_api_key or os.getenv("LANGCHAIN_API_KEY", ""),
-        "OPENAI_API_KEY": openai_api_key or os.getenv("OPENAI_API_KEY", ""),
         "OLLAMA_BASE_URL": ollama_base_url or os.getenv("OLLAMA_BASE_URL", "http://localhost:11434"),
         "TAVILY_API_KEY": tavily_api_key or os.getenv("TAVILY_API_KEY", ""),
         "GOOGLE_API_KEY": google_api_key or os.getenv("GOOGLE_API_KEY", ""),
@@ -389,6 +397,10 @@ async def handle_websocket_communication(websocket, manager):
                         "content": "error",
                         "output": "Unknown command received by server"
                     })
+            except WebSocketDisconnect as e:
+                # Client closed the connection (normal disconnect). Log at INFO level.
+                logger.info(f"WebSocket disconnected: {e.code} {e.reason}")
+                break
             except Exception as e:
                 logger.error(f"WebSocket error: {str(e)}\n{traceback.format_exc()}")
                 print(f"WebSocket error: {e}")

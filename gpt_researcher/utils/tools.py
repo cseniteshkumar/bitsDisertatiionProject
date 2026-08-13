@@ -325,15 +325,7 @@ def get_available_providers_with_tools() -> List[str]:
         List of provider names that support function calling
     """
     # These are the providers known to support function calling in LangChain
-    return [
-        "openai",
-        "anthropic", 
-        "google_genai",
-        "azure_openai",
-        "fireworks",
-        "groq",
-        # Note: This list may expand as more providers add function calling support
-    ]
+    return ["ollama"]
 
 
 def supports_tools(provider: str) -> bool:

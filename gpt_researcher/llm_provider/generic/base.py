@@ -10,84 +10,10 @@ from colorama import Fore, Style, init
 import os
 from enum import Enum
 
-_SUPPORTED_PROVIDERS = {
-    "openai",
-    "anthropic",
-    "azure_openai",
-    "cohere",
-    "google_vertexai",
-    "google_genai",
-    "fireworks",
-    "ollama",
-    "together",
-    "mistralai",
-    "huggingface",
-    "groq",
-    "bedrock",
-    "dashscope",
-    "xai",
-    "deepseek",
-    "litellm",
-    "gigachat",
-    "openrouter",
-    "vllm_openai",
-    "aimlapi",
-    "netmind",
-    "forge",
-    "avian",
-    "minimax",
-    "atlascloud",
-    "nebius",
-}
+_SUPPORTED_PROVIDERS = {"ollama"}
 
-NO_SUPPORT_TEMPERATURE_MODELS = [
-    "deepseek/deepseek-reasoner",
-    "o1-mini",
-    "o1-mini-2024-09-12",
-    "o1",
-    "o1-2024-12-17",
-    "o3-mini",
-    "o3-mini-2025-01-31",
-    "o1-preview",
-    "o3",
-    "o3-2025-04-16",
-    "o4-mini",
-    "o4-mini-2025-04-16",
-    # GPT-5 family: OpenAI enforces default temperature only
-    "gpt-5",
-    "gpt-5-mini",
-    "gpt-5-nano",
-    "gpt-5.4",
-    "gpt-5.4-mini",
-    "gpt-5.4-nano",
-    "gpt-5.4-pro",
-    "gpt-5.5",
-    "gpt-5.5-pro",
-    # Claude 4.x family: Anthropic deprecates temperature on these models
-    "claude-sonnet-4-5",
-    "claude-sonnet-4-5-20250929",
-    "claude-sonnet-4-6",
-    "claude-opus-4-5",
-    "claude-opus-4-6",
-    "claude-opus-4-7",
-    "claude-haiku-4-5",
-    "claude-haiku-4-5-20251001",
-]
-
-SUPPORT_REASONING_EFFORT_MODELS = [
-    "o3-mini",
-    "o3-mini-2025-01-31",
-    "o3",
-    "o3-2025-04-16",
-    "o4-mini",
-    "o4-mini-2025-04-16",
-    "gpt-5.4",
-    "gpt-5.4-mini",
-    "gpt-5.4-nano",
-    "gpt-5.4-pro",
-    "gpt-5.5",
-    "gpt-5.5-pro",
-]
+NO_SUPPORT_TEMPERATURE_MODELS = []
+SUPPORT_REASONING_EFFORT_MODELS = []
 
 class ReasoningEfforts(Enum):
     High = "high"
@@ -144,215 +70,20 @@ class GenericLLMProvider:
 
     @classmethod
     def from_provider(cls, provider: str, chat_log: str | None = None, verbose: bool=True, **kwargs: Any):
-        if provider == "openai":
-            _check_pkg("langchain_openai")
-            from langchain_openai import ChatOpenAI
-
-            # Support custom OpenAI-compatible APIs via OPENAI_BASE_URL
-            if "openai_api_base" not in kwargs and os.environ.get("OPENAI_BASE_URL"):
-                kwargs["openai_api_base"] = os.environ["OPENAI_BASE_URL"]
-
-            # Report token usage on streamed responses too, so cost
-            # tracking can use real usage instead of tiktoken estimates.
-            kwargs.setdefault("stream_usage", True)
-
-            llm = ChatOpenAI(**kwargs)
-        elif provider == "anthropic":
-            _check_pkg("langchain_anthropic")
-            from langchain_anthropic import ChatAnthropic
-
-            llm = ChatAnthropic(**kwargs)
-        elif provider == "azure_openai":
-            _check_pkg("langchain_openai")
-            from langchain_openai import AzureChatOpenAI
-
-            if "model" in kwargs:
-                model_name = kwargs.get("model", None)
-                kwargs = {"azure_deployment": model_name, **kwargs}
-
-            llm = AzureChatOpenAI(**kwargs)
-        elif provider == "cohere":
-            _check_pkg("langchain_cohere")
-            from langchain_cohere import ChatCohere
-
-            llm = ChatCohere(**kwargs)
-        elif provider == "google_vertexai":
-            _check_pkg("langchain_google_vertexai")
-            from langchain_google_vertexai import ChatVertexAI
-
-            llm = ChatVertexAI(**kwargs)
-        elif provider == "google_genai":
-            _check_pkg("langchain_google_genai")
-            from langchain_google_genai import ChatGoogleGenerativeAI
-
-            llm = ChatGoogleGenerativeAI(**kwargs)
-        elif provider == "fireworks":
-            _check_pkg("langchain_fireworks")
-            from langchain_fireworks import ChatFireworks
-
-            llm = ChatFireworks(**kwargs)
-        elif provider == "ollama":
-            _check_pkg("langchain_community")
-            _check_pkg("langchain_ollama")
-            from langchain_ollama import ChatOllama
-
-            base_url = kwargs.pop("base_url", None) or os.getenv(
-                "OLLAMA_BASE_URL", "http://localhost:11434"
-            )
-            llm = ChatOllama(base_url=base_url, **kwargs)
-        elif provider == "together":
-            _check_pkg("langchain_together")
-            from langchain_together import ChatTogether
-
-            llm = ChatTogether(**kwargs)
-        elif provider == "mistralai":
-            _check_pkg("langchain_mistralai")
-            from langchain_mistralai import ChatMistralAI
-
-            # Support custom Mistral-compatible APIs via MISTRAL_BASE_URL
-            if "endpoint" not in kwargs and "base_url" not in kwargs and os.environ.get("MISTRAL_BASE_URL"):
-                kwargs["endpoint"] = os.environ["MISTRAL_BASE_URL"]
-
-            llm = ChatMistralAI(**kwargs)
-        elif provider == "huggingface":
-            _check_pkg("langchain_huggingface")
-            from langchain_huggingface import ChatHuggingFace
-
-            if "model" in kwargs or "model_name" in kwargs:
-                model_id = kwargs.pop("model", None) or kwargs.pop("model_name", None)
-                kwargs = {"model_id": model_id, **kwargs}
-            llm = ChatHuggingFace(**kwargs)
-        elif provider == "groq":
-            _check_pkg("langchain_groq")
-            from langchain_groq import ChatGroq
-
-            llm = ChatGroq(**kwargs)
-        elif provider == "bedrock":
-            _check_pkg("langchain_aws")
-            from langchain_aws import ChatBedrock
-
-            if "model" in kwargs or "model_name" in kwargs:
-                model_id = kwargs.pop("model", None) or kwargs.pop("model_name", None)
-                kwargs = {"model_id": model_id, "model_kwargs": kwargs}
-            llm = ChatBedrock(**kwargs)
-        elif provider == "dashscope":
-            _check_pkg("langchain_openai")
-            from langchain_openai import ChatOpenAI
-
-            llm = ChatOpenAI(openai_api_base='https://dashscope.aliyuncs.com/compatible-mode/v1',
-                     openai_api_key=os.environ["DASHSCOPE_API_KEY"],
-                     **kwargs
-                )
-        elif provider == "xai":
-            _check_pkg("langchain_xai")
-            from langchain_xai import ChatXAI
-
-            llm = ChatXAI(**kwargs)
-        elif provider == "deepseek":
-            _check_pkg("langchain_openai")
-            from langchain_openai import ChatOpenAI
-
-            llm = ChatOpenAI(openai_api_base='https://api.deepseek.com',
-                     openai_api_key=os.environ["DEEPSEEK_API_KEY"],
-                     **kwargs
-                )
-        elif provider == "atlascloud":
-            _check_pkg("langchain_openai")
-            from langchain_openai import ChatOpenAI
-
-            llm = ChatOpenAI(openai_api_base='https://api.atlascloud.ai/v1',
-                     openai_api_key=os.environ["ATLASCLOUD_API_KEY"],
-                     **kwargs
-                )
-        elif provider == "litellm":
-            _check_pkg("langchain_community")
-            from langchain_community.chat_models.litellm import ChatLiteLLM
-
-            llm = ChatLiteLLM(**kwargs)
-        elif provider == "gigachat":
-            _check_pkg("langchain_gigachat")
-            from langchain_gigachat.chat_models import GigaChat
-
-            kwargs.pop("model", None) # Use env GIGACHAT_MODEL=GigaChat-Max
-            llm = GigaChat(**kwargs)
-        elif provider == "openrouter":
-            _check_pkg("langchain_openai")
-            from langchain_openai import ChatOpenAI
-            from langchain_core.rate_limiters import InMemoryRateLimiter
-
-            rps = float(os.environ["OPENROUTER_LIMIT_RPS"]) if "OPENROUTER_LIMIT_RPS" in os.environ else 1.0
-
-            rate_limiter = InMemoryRateLimiter(
-                requests_per_second=rps,
-                check_every_n_seconds=0.1,
-                max_bucket_size=10,
-            )
-
-            llm = ChatOpenAI(openai_api_base='https://openrouter.ai/api/v1',
-                     request_timeout=180,
-                     openai_api_key=os.environ["OPENROUTER_API_KEY"],
-                     rate_limiter=rate_limiter,
-                     **kwargs
-                )
-        elif provider == "vllm_openai":
-            _check_pkg("langchain_openai")
-            from langchain_openai import ChatOpenAI
-            llm = ChatOpenAI(
-                openai_api_key=os.environ["VLLM_OPENAI_API_KEY"],
-                openai_api_base=os.environ["VLLM_OPENAI_API_BASE"],
-                **kwargs
-            )
-        elif provider == "aimlapi":
-            _check_pkg("langchain_openai")
-            from langchain_openai import ChatOpenAI
-
-            llm = ChatOpenAI(openai_api_base='https://api.aimlapi.com/v1',
-                             openai_api_key=os.environ["AIMLAPI_API_KEY"],
-                             **kwargs
-                             )
-        elif provider == "forge":
-            _check_pkg("langchain_openai")
-            from langchain_openai import ChatOpenAI
-
-            llm = ChatOpenAI(openai_api_base='https://api.forge.tensorblock.co/v1',
-                     openai_api_key=os.environ["FORGE_API_KEY"],
-                     **kwargs
-                )
-        elif provider == "avian":
-            _check_pkg("langchain_openai")
-            from langchain_openai import ChatOpenAI
-
-            llm = ChatOpenAI(openai_api_base='https://api.avian.io/v1',
-                     openai_api_key=os.environ["AVIAN_API_KEY"],
-                     **kwargs
-                )
-        elif provider == "minimax":
-            _check_pkg("langchain_openai")
-            from langchain_openai import ChatOpenAI
-
-            llm = ChatOpenAI(openai_api_base='https://api.minimax.io/v1',
-                     openai_api_key=os.environ["MINIMAX_API_KEY"],
-                     **kwargs
-                )
-        elif provider == "nebius":
-            _check_pkg("langchain_openai")
-            from langchain_openai import ChatOpenAI
-
-            # NEBIUS_BASE_URL overrides the default endpoint (self-hosted / regional)
-            llm = ChatOpenAI(openai_api_base=os.getenv("NEBIUS_BASE_URL", 'https://api.tokenfactory.nebius.com/v1'),
-                     openai_api_key=os.environ["NEBIUS_API_KEY"],
-                     **kwargs
-                )
-        elif provider == 'netmind':
-            _check_pkg("langchain_netmind")
-            from langchain_netmind import ChatNetmind
-
-            llm = ChatNetmind(**kwargs)
-        else:
-            supported = ", ".join(_SUPPORTED_PROVIDERS)
+        if provider != "ollama":
             raise ValueError(
-                f"Unsupported {provider}.\n\nSupported model providers are: {supported}"
+                f"Unsupported provider '{provider}'. This project is configured for Ollama only. "
+                "Use model strings like 'ollama:llama3.1'."
             )
+
+        _check_pkg("langchain_community")
+        _check_pkg("langchain_ollama")
+        from langchain_ollama import ChatOllama
+
+        base_url = kwargs.pop("base_url", None) or os.getenv(
+            "OLLAMA_BASE_URL", "http://localhost:11434"
+        )
+        llm = ChatOllama(base_url=base_url, **kwargs)
         return cls(llm, chat_log, verbose=verbose)
 
 
