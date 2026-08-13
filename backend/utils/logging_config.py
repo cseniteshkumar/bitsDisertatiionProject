@@ -1,5 +1,19 @@
-try:
-    from gpt_researcher.utils.logging_config import *  # noqa: F401,F403
-except Exception:  # pragma: no cover
-    def get_json_handler(*args, **kwargs):
-        raise ImportError("backend.utils.logging_config is unavailable; ensure gpt_researcher is importable")
+"""Logging helpers for backend research runs.
+
+This module keeps the old `backend.utils.logging_config` import path alive
+while delegating to the concrete implementation in `backend.server`.
+"""
+
+from backend.server.logging_config import (  # noqa: F401
+    JSONResearchHandler,
+    get_json_handler,
+    get_research_logger,
+    setup_research_logging,
+)
+
+__all__ = [
+    "JSONResearchHandler",
+    "get_json_handler",
+    "get_research_logger",
+    "setup_research_logging",
+]

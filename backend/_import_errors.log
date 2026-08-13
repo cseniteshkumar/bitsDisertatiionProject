@@ -8,3 +8,4 @@ Failed to import GPTResearcher from backend.agent: No module named 'gpt_research
 Failed to import GPTResearcher from backend.agent: No module named 'gpt_researcher.llm_provider'
 Failed to import GPTResearcher from backend.agent: No module named 'gpt_researcher.llm_provider'
 Failed to import GPTResearcher from backend.agent: No module named 'gpt_researcher.llm_provider'
+Failed to import GPTResearcher from backend.agent: cannot import name 'get_json_handler' from 'backend.utils.logging_config' (/media/niteshkumar/SSD_Store_0_nvme/allPythoncodesWithPipEnv/Disertation_Projects/niteshSirDisertationProject/Project_Demo/bitsDisertatiionProject/backend/utils/logging_config.py)
