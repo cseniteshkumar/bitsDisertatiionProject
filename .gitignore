@@ -1,0 +1,11 @@
+# Ignore the primary environment variables file
+.env
+
+# Ignore any local or environment-specific overrides
+.env.local
+.env.*.local
+.env.development
+.env.production
+
+# DO NOT ignore the example template file (keeps it tracked)
+!.env.example
