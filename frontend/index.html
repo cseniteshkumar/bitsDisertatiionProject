@@ -135,16 +135,22 @@
 
     <section class="landing">
         <div class="max-w-5xl mx-auto text-center">
-            <h1 class="text-4xl font-extrabold mx-auto lg:text-7xl">
+            <!-- <h1 class="text-4xl font-extrabold mx-auto lg:text-7xl">
                 Say Goodbye to <br>
                 <span
                     style="background-image:linear-gradient(to right, #9867F0, #ED4E50); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Hours
                     of Research</span>
-            </h1>
-            <p class="max-w-6xl mx-auto text-gray-600 mt-8" style="font-size:20px">
+            </h1> -->
+            <!-- <p class="max-w-6xl mx-auto text-gray-600 mt-8" style="font-size:20px">
                 Say Hello to <b>GPT Researcher</b>, your AI mate for rapid insights and comprehensive research. <br>
                 GPT Researcher takes care of everything from accurate source gathering and organization of research results to generation of customized reports with citations.
+            </p> -->
+            <p class="max-w-6xl mx-auto text-gray-600 mt-8" style="font-size:20px">
+                Say Hello to <b>Researcher</b>, your AI mate for rapid insights and comprehensive research. <br><br><br>
+                <b>Researcher</b> takes care of everything from accurate source gathering and organization of research results to generation of customized reports with citations.
             </p>
+             <br><br><br>
+
             <a href="#form" class="btn btn-primary">Start Researching</a>
         </div>
     </section>
@@ -167,6 +173,12 @@
             <div class="form-group">
                 <label for="report_type" class="agent-question">What type of report would you like me to
                     generate?</label>
+                <!-- <select name="report_type" id="report_type" class="form-control highlight-connection" required>
+                    <option value="research_report">Summary - Short and fast (~2 min)</option>
+                    <option value="detailed_report">Detailed - In depth and longer (~5 min)</option>
+                    <option value="resource_report">Resource Report</option>
+                    <option value="deep">Deep Research</option>
+                </select> -->
                 <select name="report_type" id="report_type" class="form-control highlight-connection" required>
                     <option value="research_report">Summary - Short and fast (~2 min)</option>
                     <option value="detailed_report">Detailed - In depth and longer (~5 min)</option>
@@ -216,9 +228,9 @@
                     well. Please make sure to add the DOC_PATH env variable pointing to your documents folder.</p>
                 <select name="report_source" id="report_source" class="form-control highlight-connection" required>
                     <option value="web">The Web</option>
-                    <option value="local">My Documents</option>
+                    <!-- <option value="local">My Documents</option> -->
                     <option value="hybrid">Hybrid</option>
-                    <option value="azure">Azure storage</option>
+                    <!-- <option value="azure">Azure storage</option> -->
                 </select>
             </div>
             <div class="form-group">
@@ -226,14 +238,14 @@
                 <input type="number" class="form-control highlight-connection" id="maxSearchResults" name="max_search_results" min="1" max="20" value="5">
                 <small class="text-muted">Controls the number of websites scraped per search query (default: 5)</small>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="queryDomains" class="form-label">Query Domains (Optional)</label>
                 <input type="text" class="form-control highlight-connection" id="queryDomains" name="query_domains" placeholder="Enter domains separated by commas" autocomplete="on">
                 <small class="text-muted">Example: techcrunch.com, forbes.com</small>
-            </div>
+            </div> -->
 
             <!-- MCP Configuration Section -->
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <div class="mcp-section">
                     <div class="mcp-header">
                         <label for="mcpEnabled" class="form-label">
@@ -280,7 +292,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <input type="submit" value="Begin Research" class="btn btn-primary button-padding" id="submitButton">
         </form>
