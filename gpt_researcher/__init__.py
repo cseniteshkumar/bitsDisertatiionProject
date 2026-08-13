@@ -6,7 +6,6 @@ after consolidation. It delegates package lookups to the `backend` package
 by adopting its `__path__` and re-exporting top-level names.
 """
 import importlib
-import os
 
 # Import the canonical backend package
 _bk = importlib.import_module("backend")
@@ -15,7 +14,6 @@ _bk = importlib.import_module("backend")
 try:
     __path__ = list(_bk.__path__)
 except Exception:
-    # fallback: single-file backend may not have __path__
     __path__ = []
 
 # Re-export symbols from backend for convenience
