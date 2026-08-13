@@ -267,7 +267,7 @@ def summarize(records: list[dict], system: str) -> dict:
 async def main() -> None:
     parser = argparse.ArgumentParser(description="Recency benchmark: GPT Researcher deep agent vs raw-search deep agent")
     parser.add_argument("--concurrency", type=int, default=2)
-    parser.add_argument("--model", type=str, default=os.environ.get("STRATEGIC_LLM", "openai:gpt-5.4"))
+    parser.add_argument("--model", type=str, default=os.environ.get("STRATEGIC_LLM", "ollama:llama3.1"))
     parser.add_argument("--grader-model", type=str, default="gpt-5.4")
     args = parser.parse_args()
 

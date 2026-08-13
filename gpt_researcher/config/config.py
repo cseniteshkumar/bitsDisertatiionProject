@@ -217,7 +217,7 @@ class Config:
         except ValueError:
             raise ValueError(
                 "Set SMART_LLM or FAST_LLM = '<llm_provider>:<llm_model>' "
-                "Eg 'openai:gpt-4o-mini'"
+                "Eg 'ollama:llama3.1'"
             )
 
     @staticmethod

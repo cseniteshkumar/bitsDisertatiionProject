@@ -155,7 +155,7 @@ async def main() -> None:
     parser.add_argument("--num-topics", type=int, default=8)
     parser.add_argument("--concurrency", type=int, default=2)
     parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--model", type=str, default=os.environ.get("STRATEGIC_LLM", "openai:gpt-5.4"))
+    parser.add_argument("--model", type=str, default=os.environ.get("STRATEGIC_LLM", "ollama:llama3.1"))
     parser.add_argument("--judge-model", type=str, default="gpt-5.4")
     args = parser.parse_args()
 

@@ -2,11 +2,11 @@ from .base import BaseConfig
 
 DEFAULT_CONFIG: BaseConfig = {
     "RETRIEVER": "tavily",
-    "EMBEDDING": "openai:text-embedding-3-small",
+    "EMBEDDING": "ollama:nomic-embed-text",
     "SIMILARITY_THRESHOLD": 0.42,
-    "FAST_LLM": "openai:gpt-5.4-mini",
-    "SMART_LLM": "openai:gpt-5.4",  # Has support for long responses (2k+ words).
-    "STRATEGIC_LLM": "openai:gpt-5.4",  # Reasoning model used for planning; tune REASONING_EFFORT for speed vs. depth.
+    "FAST_LLM": "ollama:llama3.1",
+    "SMART_LLM": "ollama:llama3.1",  # Good default for general-purpose local chat.
+    "STRATEGIC_LLM": "ollama:llama3.1",  # Reasoning and planning default for local Ollama setups.
     # Output token limits. For reasoning models (the default gpt-5.x family)
     # these map to max_completion_tokens, which also covers reasoning tokens -
     # hence the generous headroom on top of the visible output.
@@ -46,6 +46,7 @@ DEFAULT_CONFIG: BaseConfig = {
     "MCP_ALLOWED_ROOT_PATHS": [],  # List of allowed root paths for local file access
     "MCP_STRATEGY": "fast",  # MCP execution strategy: "fast", "deep", "disabled"
     "REASONING_EFFORT": "medium",
+    "OLLAMA_BASE_URL": "http://localhost:11434",
     
     # Image generation settings (optional - requires GOOGLE_API_KEY)
     # Free tier models: gemini-2.5-flash-image, gemini-2.0-flash-exp-image-generation

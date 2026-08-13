@@ -82,7 +82,7 @@ async def main() -> None:
     parser.add_argument("--num-tasks", type=int, default=10)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--concurrency", type=int, default=3)
-    parser.add_argument("--model", type=str, default=os.environ.get("STRATEGIC_LLM", "openai:gpt-5.4"))
+    parser.add_argument("--model", type=str, default=os.environ.get("STRATEGIC_LLM", "ollama:llama3.1"))
     args = parser.parse_args()
 
     tasks = sample_tasks(args.bench_dir / "data/prompt_data/query.jsonl", args.num_tasks, args.seed)

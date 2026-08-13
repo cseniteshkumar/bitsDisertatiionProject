@@ -61,7 +61,7 @@ of sources used, and the file path. Never paste the full draft into your reply.
 
 
 def build_agent(task: dict, run_dir: str):
-    model = os.environ.get("STRATEGIC_LLM") or task.get("model", "openai:gpt-5.4")
+    model = os.environ.get("STRATEGIC_LLM") or task.get("model", "ollama:llama3.1")
     quick_search, deep_research = build_research_tools(task)
 
     guidelines = ""

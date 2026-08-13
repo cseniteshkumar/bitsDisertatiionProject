@@ -267,11 +267,13 @@ async def send_file_paths(websocket, file_paths: Dict[str, str]):
 def get_config_dict(
     langchain_api_key: str, openai_api_key: str, tavily_api_key: str,
     google_api_key: str, google_cx_key: str, bing_api_key: str,
-    searchapi_api_key: str, serpapi_api_key: str, serper_api_key: str, searx_url: str
+    searchapi_api_key: str, serpapi_api_key: str, serper_api_key: str, searx_url: str,
+    ollama_base_url: str = ""
 ) -> Dict[str, str]:
     return {
         "LANGCHAIN_API_KEY": langchain_api_key or os.getenv("LANGCHAIN_API_KEY", ""),
         "OPENAI_API_KEY": openai_api_key or os.getenv("OPENAI_API_KEY", ""),
+        "OLLAMA_BASE_URL": ollama_base_url or os.getenv("OLLAMA_BASE_URL", "http://localhost:11434"),
         "TAVILY_API_KEY": tavily_api_key or os.getenv("TAVILY_API_KEY", ""),
         "GOOGLE_API_KEY": google_api_key or os.getenv("GOOGLE_API_KEY", ""),
         "GOOGLE_CX_KEY": google_cx_key or os.getenv("GOOGLE_CX_KEY", ""),

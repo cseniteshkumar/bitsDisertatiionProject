@@ -161,7 +161,7 @@ async def main() -> None:
     parser = argparse.ArgumentParser(description="Breadth x depth benchmark at fixed agent budgets")
     parser.add_argument("--budgets", type=int, nargs="+", default=[25, 60],
                         help="agent-step budgets (LangGraph recursion limits) to test")
-    parser.add_argument("--model", type=str, default=os.environ.get("STRATEGIC_LLM", "openai:gpt-5.4"))
+    parser.add_argument("--model", type=str, default=os.environ.get("STRATEGIC_LLM", "ollama:llama3.1"))
     parser.add_argument("--grader-model", type=str, default="gpt-5.4")
     parser.add_argument("--concurrency", type=int, default=2)
     args = parser.parse_args()

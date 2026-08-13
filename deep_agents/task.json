@@ -1,6 +1,6 @@
 {
   "query": "Is AI in a hype cycle?",
-  "model": "openai:gpt-5.4",
+  "model": "ollama:llama3.1",
   "max_sections": 3,
   "source": "web",
   "follow_guidelines": false,

@@ -15,7 +15,7 @@ from gpt_researcher.utils.enum import ReportType, ReportSource, Tone
 logger = logging.getLogger(__name__)
 
 # Constants for models
-GPT4_MODEL = "gpt-4o"  # For standard tasks
+GPT4_MODEL = "llama3.1"  # For standard tasks
 O3_MINI_MODEL = "o3-mini"  # For reasoning tasks
 LLM_PROVIDER = "openai"
 

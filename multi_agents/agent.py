@@ -5,7 +5,7 @@ chief_editor = ChiefEditorAgent({
   "max_sections": 3,
   "max_plan_revisions": 3,
   "follow_guidelines": False,
-  "model": "gpt-4o",
+  "model": "llama3.1",
   "guidelines": [
     "The report MUST be written in APA format",
     "Each sub section MUST include supporting sources using hyperlinks. If none exist, erase the sub section or rewrite it to be a part of the previous section",

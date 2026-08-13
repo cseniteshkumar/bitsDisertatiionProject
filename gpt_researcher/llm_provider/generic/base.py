@@ -196,7 +196,10 @@ class GenericLLMProvider:
             _check_pkg("langchain_ollama")
             from langchain_ollama import ChatOllama
 
-            llm = ChatOllama(base_url=os.environ["OLLAMA_BASE_URL"], **kwargs)
+            base_url = kwargs.pop("base_url", None) or os.getenv(
+                "OLLAMA_BASE_URL", "http://localhost:11434"
+            )
+            llm = ChatOllama(base_url=base_url, **kwargs)
         elif provider == "together":
             _check_pkg("langchain_together")
             from langchain_together import ChatTogether
