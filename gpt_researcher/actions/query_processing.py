@@ -1,5 +1,7 @@
 import json_repair
 
+from typing import List, Any
+
 from gpt_researcher.llm_provider.generic.base import ReasoningEfforts
 
 

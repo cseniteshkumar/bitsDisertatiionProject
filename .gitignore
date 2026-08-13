@@ -1,3 +1,20 @@
+# --- Python Virtual Environments ---
+venv/
+.venv/
+env/
+.venv*
+ENV/
+
+# --- Environment Configuration Files ---
+.env
+.env.local
+.env.*.local
+
+
+#### Ignore all logs
+logs/
+
+
 # Ignore the primary environment variables file
 .env
 
