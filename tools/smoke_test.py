@@ -66,7 +66,6 @@ def main():
         "gpt_researcher",
         "backend.server.app",
         "backend.run_server",
-        "deep_agents.main",
         "multi_agents.main",
         "cli",
         "main",

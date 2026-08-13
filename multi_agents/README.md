@@ -2,7 +2,7 @@
 [LangGraph](https://python.langchain.com/docs/langgraph) is a library for building stateful, multi-actor applications with LLMs. 
 This example uses Langgraph to automate the process of an in depth research on any given topic.
 
-Looking for the AG2 version? See `multi_agents/ag2/` and the AG2 docs page.
+This is the canonical multi-agent workflow for the project; we keep a single implementation path to avoid duplicate orchestration logic.
 
 ## Use case
 By using Langgraph, the research process can be significantly improved in depth and quality by leveraging multiple agents with specialized skills. 
