@@ -1,0 +1,17 @@
+python cli.py
+usage: cli.py [-h] --report_type {research_report,resource_report,outline_report,custom_report,detailed_report,subtopic_report,deep}
+              [--tone {objective,formal,analytical,persuasive,informative,explanatory,descriptive,critical,comparative,speculative,reflective,narrative,humorous,optimistic,pessimistic}]
+              [--encoding ENCODING] [--query_domains QUERY_DOMAINS] [--report_source {web,local,hybrid,azure,langchain_documents,langchain_vectorstore,static}] [--no-pdf] [--no-docx]
+              query
+cli.py: error: the following arguments are required: query, --report_type
+
+
+
+python cli.py --report_type research_report --tone explanatory "how to solve paper jam"
+
+
+python cli.py --report_type research_report --tone formal "how to solve paper jam"
+
+
+
+python cli.py --report_type research_report "how to solve paper jam"

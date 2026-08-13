@@ -290,17 +290,19 @@ async def main(args):
             "formal": Tone.Formal,
             "analytical": Tone.Analytical,
             "persuasive": Tone.Persuasive,
-            "informative": Tone.Informative,
-            "explanatory": Tone.Explanatory,
-            "descriptive": Tone.Descriptive,
-            "critical": Tone.Critical,
-            "comparative": Tone.Comparative,
-            "speculative": Tone.Speculative,
-            "reflective": Tone.Reflective,
-            "narrative": Tone.Narrative,
-            "humorous": Tone.Humorous,
-            "optimistic": Tone.Optimistic,
-            "pessimistic": Tone.Pessimistic
+            "informative": Tone.Informative
+
+            # "informative": Tone.Informative,
+            # "explanatory": Tone.Explanatory,
+            # "descriptive": Tone.Descriptive,
+            # "critical": Tone.Critical,
+            # "comparative": Tone.Comparative,
+            # "speculative": Tone.Speculative,
+            # "reflective": Tone.Reflective,
+            # "narrative": Tone.Narrative,
+            # "humorous": Tone.Humorous,
+            # "optimistic": Tone.Optimistic,
+            # "pessimistic": Tone.Pessimistic
         }
 
         researcher = GPTResearcher(
