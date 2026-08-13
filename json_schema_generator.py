@@ -32,8 +32,8 @@ def generate_structured_json(schema: BaseModel, data: Dict[str, Any]) -> str:
 if __name__ == "__main__":
     sample_data = {
         "id": 1,
-        "name": "John Doe",
-        "email": "john@example.com",
+        "name": "Nitesh Kumar",
+        "email": "Nitesh Kumar@example.com",
         "age": 30,
         "is_active": True
     }
